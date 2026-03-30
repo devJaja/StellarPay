@@ -1,4 +1,4 @@
-import { registerEmployee } from "../services/sorobanService.js"; //getEmployeeWithWA,
+import { registerEmployee, getEmployeeWithWA } from "../services/sorobanService.js";
 import { useCallback } from "react";
 import { useEmployeeStore } from "../store/empStore.js";
 
@@ -20,6 +20,7 @@ export function useCheckUser() {
         try {
             setLoading(true)
             const empData = await getEmployeeWithWA(address);
+            if (!empData) return { isRegistered: false };
             setEmpData({
                 empId: empData.empId,
                 salary: empData.rem_salary / 10000000,

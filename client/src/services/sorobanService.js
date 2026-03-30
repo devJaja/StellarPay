@@ -301,6 +301,57 @@ export async function getEmployeeDetails(publicKey, empId) {
   }
 }
 
+/**
+ * Look up a full employee record by wallet address.
+ * Chains get_emp_id_by_wallet → get_emp_details.
+ * Returns a plain object { empId, wallet, rem_salary, salary_token }
+ * or null if the wallet is not registered (emp_id === 0).
+ */
+export async function getEmployeeWithWA(walletAddress) {
+  try {
+    const account = await server.getAccount(walletAddress);
+    const contract = new Contract(CONTRACT_ADDRESS_WAGE);
+
+    // Step 1: resolve wallet → emp_id
+    const idTx = new TransactionBuilder(account, {
+      fee: BASE_FEE,
+      networkPassphrase: Networks.TESTNET,
+    })
+      .addOperation(contract.call("get_emp_id_by_wallet", addressToScVal(walletAddress)))
+      .setTimeout(300)
+      .build();
+
+    const idSim = await server.simulateTransaction(idTx);
+    if (!idSim.result) return null;
+
+    const empId = Number(scValToNative(idSim.result.retval));
+    if (empId === 0) return null; // wallet not registered
+
+    // Step 2: resolve emp_id → full details
+    const detailsTx = new TransactionBuilder(account, {
+      fee: BASE_FEE,
+      networkPassphrase: Networks.TESTNET,
+    })
+      .addOperation(contract.call("get_emp_details", numberToU128(empId)))
+      .setTimeout(300)
+      .build();
+
+    const detailsSim = await server.simulateTransaction(detailsTx);
+    if (!detailsSim.result) return null;
+
+    const raw = scValToNative(detailsSim.result.retval);
+    return {
+      empId: Number(raw.emp_id),
+      wallet: raw.wallet,
+      rem_salary: Number(raw.rem_salary),
+      salary_token: raw.salary_token,
+    };
+  } catch (error) {
+    console.error("Error in getEmployeeWithWA:", error);
+    return null;
+  }
+}
+
 export async function getRemainingSalary(publicKey, empId) {
   try {
     const account = await server.getAccount(publicKey);
@@ -373,6 +424,7 @@ export default {
   requestAdvance,
   getVaultBalance,
   getEmployeeDetails,
+  getEmployeeWithWA,
   getRemainingSalary,
   releaseRemainingSalary,
   getWalletTokenBalances,

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEmployeeStore } from "../store/empStore";
-import {  registerEmployee } from "../services/sorobanService";//getEmployeeWithWA
+import {  registerEmployee, getEmployeeWithWA } from "../services/sorobanService";
 import { useWalletContext } from "../context/WalletContext";
 import Card from "./Cards";
 import Button from "./Button";
