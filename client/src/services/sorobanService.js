@@ -190,7 +190,9 @@ export async function getWalletTokenBalances(publicKey) {
 
     return balances;
   } catch (error) {
-    console.error("Error fetching balances:", error);
+    if (import.meta.env.DEV) {
+      console.error("Error fetching balances:", error);
+    }
     return [
       {
         symbol: "XLM",
@@ -225,10 +227,14 @@ export async function registerEmployee(publicKey, walletAddress, salary, salaryT
     const signedTx = await signWithFreighter(preparedTx);
 
     const result = await submitTransaction(signedTx);
-    console.log("registerEmployee transaction success:", result);
+    if (import.meta.env.DEV) {
+      console.log("registerEmployee transaction success:", result);
+    }
     return result;
   } catch (error) {
-    console.error("registerEmployee error:", error);
+    if (import.meta.env.DEV) {
+      console.error("registerEmployee error:", error);
+    }
     throw error;
   }
 }
@@ -239,18 +245,41 @@ export async function getAdmin() {
   return submitTransaction(signedTx);
 }
 
-export async function getTokenBalance(publicKey, tokenAddress) {
+export async function getTokenBalance(publicKey, tokenAddress = CONTRACT_ADDRESS_TOKEN) {
   try {
-    const horizonUrl = `https://horizon-testnet.stellar.org/accounts/${publicKey}`;
-    const response = await fetch(horizonUrl);
-    if (!response.ok) return 0;
-    const data = await response.json();
-    for (const b of data.balances) {
-      if (b.asset_type === "native" && tokenAddress === "native") return parseFloat(b.balance);
-      if (b.asset_issuer === tokenAddress) return parseFloat(b.balance);
+    if (tokenAddress === "native" || !tokenAddress) {
+      // Get XLM balance from Horizon
+      const horizonUrl = `https://horizon-testnet.stellar.org/accounts/${publicKey}`;
+      const response = await fetch(horizonUrl);
+      if (!response.ok) throw new Error("Failed to fetch account");
+      const accountData = await response.json();
+      const xlmBalance = accountData.balances.find(b => b.asset_type === "native");
+      return parseFloat(xlmBalance?.balance || 0) * 10000000; // Convert to stroops
+    } else {
+      // Get token balance from contract
+      const account = await server.getAccount(publicKey);
+      const contract = new Contract(tokenAddress);
+      const operation = contract.call("balance", addressToScVal(publicKey));
+
+      const transaction = new TransactionBuilder(account, {
+        fee: BASE_FEE,
+        networkPassphrase: Networks.TESTNET,
+      })
+        .addOperation(operation)
+        .setTimeout(300)
+        .build();
+
+      const simResult = await server.simulateTransaction(transaction);
+      if (simResult.result) {
+        const resultValue = xdr.ScVal.fromXDR(simResult.result.retval.toXDR());
+        return Number(resultValue.i128().lo().toString());
+      }
+      return 0;
     }
-    return 0;
-  } catch {
+  } catch (error) {
+    if (import.meta.env.DEV) {
+      console.error("Error getting token balance:", error);
+    }
     return 0;
   }
 }
@@ -295,7 +324,7 @@ export async function requestAdvance(publicKey, empId, amount, tokenAddress = CO
 export async function getVaultBalance(publicKey, tokenAddress = CONTRACT_ADDRESS_TOKEN) {
   try {
     const account = await server.getAccount(publicKey);
-  const contract = getWageContract();
+    const contract = getWageContract();
     const operation = contract.call("vault_balance", addressToScVal(tokenAddress));
 
     const transaction = new TransactionBuilder(account, {
@@ -313,7 +342,9 @@ export async function getVaultBalance(publicKey, tokenAddress = CONTRACT_ADDRESS
     }
     return 0;
   } catch (error) {
-    console.error("Error getting vault balance:", error);
+    if (import.meta.env.DEV) {
+      console.error("Error getting vault balance:", error);
+    }
     return 0;
   }
 }
@@ -339,7 +370,9 @@ export async function getEmployeeDetails(publicKey, empId) {
     }
     return null;
   } catch (error) {
-    console.error("Error getting employee details:", error);
+    if (import.meta.env.DEV) {
+      console.error("Error getting employee details:", error);
+    }
     return null;
   }
 }
@@ -367,7 +400,9 @@ export async function getEmployeeIdByWallet(walletAddress) {
 
     return 0;
   } catch (error) {
-    console.error("Error getting employee ID by wallet:", error);
+    if (import.meta.env.DEV) {
+      console.error("Error getting employee ID by wallet:", error);
+    }
     return 0;
   }
 }
@@ -392,7 +427,9 @@ export async function getEmployeeWithWA(walletAddress) {
       ...details,
     };
   } catch (error) {
-    console.error("Error getting employee with wallet address:", error);
+    if (import.meta.env.DEV) {
+      console.error("Error getting employee with wallet address:", error);
+    }
     throw error;
   }
 }
@@ -418,7 +455,9 @@ export async function getRemainingSalary(publicKey, empId) {
     }
     return 0;
   } catch (error) {
-    console.error("Error getting remaining salary:", error);
+    if (import.meta.env.DEV) {
+      console.error("Error getting remaining salary:", error);
+    }
     return 0;
   }
 }
@@ -458,7 +497,9 @@ export async function getTransactionHistory(publicKey) {
       fee: 0,
     }));
   } catch (error) {
-    console.error("Error fetching transaction history:", error);
+    if (import.meta.env.DEV) {
+      console.error("Error fetching transaction history:", error);
+    }
     return [];
   }
 }
