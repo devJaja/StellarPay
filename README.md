@@ -48,9 +48,9 @@ $2,000 rewarded every month to validated builders.
 
 | User Name | User Email | User Wallet Address | User Feedback | Commit ID |
 |-----------|------------|---------------------|---------------|-----------|
-| Alice Johnson | alice.johnson@stellarpay.io | `GABC7DEFGHIJK2LMNOPQRSTU3VWXYZ456ABCDEFGHIJK7LMNOPQRSTUV` | Implement CI/CD pipelines for better test case functionality | [`64b0a17`](https://github.com/rajdeep-singha/StellarPay/commit/64b0a17) · [PR #67](https://github.com/rajdeep-singha/StellarPay/pull/67) |
-| Carol Chen | carol.chen@stellarpay.io | `GCYZ456ABCDEFGHIJK7LMNOPQRSTUVWABC7DEFGHIJK2LMNOPQRSTU3V` | Add live XLM/USD price feed with real-time ticker component | [`dc48462`](https://github.com/rajdeep-singha/StellarPay/commit/dc48462) · [PR #75](https://github.com/rajdeep-singha/StellarPay/pull/75) |
-| David Patel | david.patel@stellarpay.io | `GDIJK7LMNOPQRSTUVWABC7DEFGHIJK2LMNOPQRSTU3VWXYZ456ABCDEF` | Add CSV export functionality for payroll data so that we can print payrolls — very handy | [`f2fb3fe`](https://github.com/rajdeep-singha/StellarPay/commit/f2fb3fe) · [PR #32](https://github.com/rajdeep-singha/StellarPay/pull/32) |
+| Swarnadeep Chanda | swarnadeep.c17@gmail.com | `GBNWTLZKQPYJLPZNO6YSQ3XASIUP4IJA2KTKXBJMH35IWCEVQ6BQFKGN` | Implement CI/CD pipelines for better test case functionality | [`64b0a17`](https://github.com/rajdeep-singha/StellarPay/commit/64b0a17) · [PR #67](https://github.com/rajdeep-singha/StellarPay/pull/67) |
+| Samriddha Das | samriddhadas0106@gmail.com | `GAL6K7NYTU7RZKSL2HT72QVF3BEPHIN4UCHVAB26UGFS6LN3LCVB3UJB` | Add live XLM/USD price feed with real-time ticker component | [`dc48462`](https://github.com/rajdeep-singha/StellarPay/commit/dc48462) · [PR #75](https://github.com/rajdeep-singha/StellarPay/pull/75) |
+| Soni shree | sonishree125@gmail.com | `GCQJEHOEIJ46JONK5LCIDGIVUIDFLTFMHSTIJG2HVIE6VHEU3MYVLPRZ` | Add CSV export functionality for payroll data so that we can print payrolls — very handy | [`f2fb3fe`](https://github.com/rajdeep-singha/StellarPay/commit/f2fb3fe) · [PR #32](https://github.com/rajdeep-singha/StellarPay/pull/32) |
 
 ##  About
 
