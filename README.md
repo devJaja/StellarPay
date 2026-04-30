@@ -178,6 +178,11 @@ Stellar-Pay/
 
 ---
 
+
+## CI/CD Logic 
+<img width="568" height="159" alt="image" src="https://github.com/user-attachments/assets/d8b4f1db-2439-445a-bccf-f1ce6baff27a" />
+
+
 ##  Why StellarPay?
 
 ###  Market Opportunity
