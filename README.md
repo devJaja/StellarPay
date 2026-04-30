@@ -31,6 +31,9 @@ $2,000 rewarded every month to validated builders.
 
 ---
 
+## User Feedback
+<img width="1234" height="776" alt="image" src="https://github.com/user-attachments/assets/c1e8645e-aadc-4975-8533-203486b389b1" />
+
 ##  About
 
 **StellarPay** is a next-generation remittance and payroll platform built on the **Stellar blockchain**. We leverage Soroban smart contracts to provide:
