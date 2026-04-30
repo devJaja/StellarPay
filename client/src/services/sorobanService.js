@@ -395,9 +395,8 @@ export async function getEmployeeIdByWallet(walletAddress) {
 
     const simResult = await server.simulateTransaction(transaction);
     if (simResult.result) {
-      const sc = xdr.ScVal.fromXDR(simResult.result.retval.toXDR());
-      const id = Number(sc.u128().lo().toString());
-      return id;
+      const raw = xdr.ScVal.fromXDR(simResult.result.retval.toXDR());
+      return Number(scValToNative(raw));
     }
 
     return 0;
