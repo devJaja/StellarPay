@@ -38,11 +38,11 @@ $2,000 rewarded every month to validated builders.
 
 | User Name | User Email | User Wallet Address |
 |-----------|------------|---------------------|
-| Alice Johnson | alice.johnson@stellarpay.io | `GABC7DEFGHIJK2LMNOPQRSTU3VWXYZ456ABCDEFGHIJK7LMNOPQRSTUV` |
-| Bob Martinez | bob.martinez@stellarpay.io | `GBTU3VWXYZ456ABCDEFGHIJK7LMNOPQRSTUVWABC7DEFGHIJK2LMNOPQ` |
-| Carol Chen | carol.chen@stellarpay.io | `GCYZ456ABCDEFGHIJK7LMNOPQRSTUVWABC7DEFGHIJK2LMNOPQRSTU3V` |
-| David Patel | david.patel@stellarpay.io | `GDIJK7LMNOPQRSTUVWABC7DEFGHIJK2LMNOPQRSTU3VWXYZ456ABCDEF` |
-| Emma Wilson | emma.wilson@stellarpay.io | `GESTUVWABC7DEFGHIJK2LMNOPQRSTU3VWXYZ456ABCDEFGHIJK7LMNOP` |
+| Ansh | anshansh5999@gmail.com| `GCB3VWQA52OMVE6XQ4XDXEIKAYCN3ORBSVRXXEHQXNJAZUFMZNP3VTJI` |
+| Samriddhi Tripathi | samriddhit13@gmail.com | `GAVTU3FCWGXWHXD33LIORGUJ6CR5XEUJ4AKJVXXIOOOQRXGGGNGBKJNQ` |
+| Utkarsh Singh | utkarshsingh2321@gmail.com | `GDRB6WSREDVNHB63MSEQOUOF52NNEJ36UQ3LRA5P7YP4C5JUNXNV34YD` |
+| Achika bala | achika@gmail.com | `GDQNFJVN7ZJDEM3E7ZMVA4OIL2VAC4J6XRV4EQ62R4KNFPEZSSXASDRJ` |
+| EAnsh Singh | anshansh5999@gmail.com | `GBKYNHPCT7EHUBNL5VMFLEYLHDST5H5XKJGMKZYNEKJZCUCJCLO3SSRE` |
 
 ### User Feedback Implementation
 
