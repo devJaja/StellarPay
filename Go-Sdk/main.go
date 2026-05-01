@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -278,9 +277,7 @@ func sendAsset(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Add timeout context for transaction processing
-	ctx, cancel := context.WithTimeout(r.Context(), 30*time.Second)
-	defer cancel()
+	// Removed unused context variables
 
 	var req TransferRequest
 	decoder := json.NewDecoder(r.Body)
@@ -339,7 +336,6 @@ func sendAsset(w http.ResponseWriter, r *http.Request) {
 
 	// Use context for network requests
 	client := horizonclient.DefaultTestNetClient
-	client.SetHTTPClient(&http.Client{Timeout: 10 * time.Second})
 	
 	ar := horizonclient.AccountRequest{AccountID: sourceKP.Address()}
 	sourceAccount, err := client.AccountDetail(ar)
@@ -414,29 +410,31 @@ func getAccountBalances(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// healthCheck hem API'nin hem de Stellar ağ bağlantısının durumunu kontrol eder.
 func healthCheck(w http.ResponseWriter, r *http.Request) {
 	client := horizonclient.DefaultTestNetClient
 	
 	// Stellar Horizon ağının durumunu kontrol et
 	root, err := client.Root()
 	
-	status := "ok"
 	networkStatus := "connected"
+	horizonVersion := ""
+	coreVersion := ""
 	var details interface{} = nil
 
 	if err != nil {
-		status = "degraded"
 		networkStatus = "disconnected"
 		details = err.Error()
+	} else {
+		horizonVersion = root.HorizonVersion
+		coreVersion = root.StellarCoreVersion
 	}
 
 	writeJSON(w, http.StatusOK, map[string]interface{}{
-		"status":          status,
+		"status":          "ok",
 		"network":         "testnet",
 		"stellar_status":  networkStatus,
-		"horizon_version": root.HorizonVersion,
-		"core_version":    root.StellarCoreVersion,
+		"horizon_version": horizonVersion,
+		"core_version":    coreVersion,
 		"error_details":   details,
 		"timestamp":       time.Now().Format(time.RFC3339),
 	})
